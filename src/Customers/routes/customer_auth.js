@@ -20,7 +20,7 @@ router.post('/user/logout', customer_logout);
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
 const accountSid = 'ACb934b93e5c421669ce5dd278c198e7da';
-const authToken = 'b047a7367ce362913c364d4652036288';
+const authToken = 'adf0d60c2fab2ff7ef3b3389ea4c3ea7';
 const serviceID = 'VAe85db01e72c75ededbe1e5c86c788c61';
 
 const client = require('twilio')(accountSid, authToken);

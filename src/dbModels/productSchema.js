@@ -47,6 +47,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         currency: 'INR',
     },
+    base_quantity:{
+        type: String,
+        required: true
+    },
     productPictures: [
         {
             img: { type: String }
@@ -54,7 +58,7 @@ const productSchema = new mongoose.Schema({
     ],
     reviews: [
         {
-            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
             review: String
         }
     ],

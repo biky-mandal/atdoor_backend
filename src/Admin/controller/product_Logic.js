@@ -11,7 +11,7 @@ exports.create_Product = (req, res) => {
     const {
         name, description, stock_amount, unit, qtyunit,
         stock_quantity, amt_original_price,
-        amt_selling_price, qty_original_price,
+        amt_selling_price, qty_original_price, base_quantity,
         qty_selling_price, category
     } = req.body
 
@@ -38,6 +38,7 @@ exports.create_Product = (req, res) => {
         qty_selling_price,
         unit,
         qtyunit,
+        base_quantity,
         category,
         productPictures,
         createdBy: req.user._id

@@ -34,6 +34,9 @@ const adminProductRoutes = require('./Admin/routes/productRoutes');
 
 // Importing Routes for customer
 const userAuthRoutes = require('./Customers/routes/customer_auth');
+const initialdataroutes = require('./Customers/routes/initial_data');
+const addToCart = require('./Customers/routes/cart');
+const fetchCart = require('./Customers/routes/fetch_cart');
 
 
 // Using the Imported Routes
@@ -45,6 +48,9 @@ app.use("/public", express.static(Path.join(__dirname, '/Resources/ProductImg'))
 
 // For Customer.
 app.use('/api', userAuthRoutes);
+app.use('/api', initialdataroutes);
+app.use('/api', addToCart);
+app.use('/api', fetchCart);
 
 
 app.listen(process.env.PORT, () => {

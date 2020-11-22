@@ -27,8 +27,3 @@ exports.check_Admin_or_Not = (req, res, next) => {
     }
     next();
 }
-
-// Verificaion of phone Number
-exports.phone_verification = (req, res, next) => {
-    
-}
