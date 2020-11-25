@@ -77,3 +77,38 @@ exports.add_item_to_cart = (req, res) => {
         }
     })
 }
+
+exports.remove_item_from_cart = (req, res) => {
+    Cart.findOne({ user: req.user._id }).exec((error, cart) => {
+        if (error) {
+            return res.status(400).json({
+                error
+            })
+        }
+
+        if(cart){
+            const remove_product = req.body.cartItems.product
+            const item = cart.cartItems.find(c => c.product == remove_product);
+
+            if(item){
+                Cart.findOneAndUpdate({user: req.user._id, "cartItems.product": remove_product},
+                {
+                    "$pull": {
+                        "cartItems": req.body.cartItems
+                    }
+                }, (error, _cart) => {
+                    if (error) {
+                        return res.status(400).json({
+                            error
+                        })
+                    }
+                    if (_cart) {
+                        return res.status(200).json({
+                            message: "Removed From Cart"
+                        })
+                    }
+                })
+            }
+        }
+    })
+}
