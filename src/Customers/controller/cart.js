@@ -31,7 +31,7 @@ exports.add_item_to_cart = (req, res) => {
                     }
                     if (_cart) {
                         return res.status(200).json({
-                            message: "Added to Cart"
+                            _cart
                         })
                     }
                 })
@@ -48,7 +48,7 @@ exports.add_item_to_cart = (req, res) => {
                     }
                     if (_cart) {
                         return res.status(200).json({
-                            message: "Added To Cart"
+                            _cart
                         })
                     }
                 })
