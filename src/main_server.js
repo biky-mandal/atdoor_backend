@@ -37,6 +37,9 @@ const userAuthRoutes = require('./Customers/routes/customer_auth');
 const initialdataroutes = require('./Customers/routes/initial_data');
 const addToCart = require('./Customers/routes/cart');
 const fetchCart = require('./Customers/routes/fetch_cart');
+const placeOrder = require('./Customers/routes/order');
+const payment = require('./Customers/routes/payment');
+
 
 
 // Using the Imported Routes
@@ -51,6 +54,8 @@ app.use('/api', userAuthRoutes);
 app.use('/api', initialdataroutes);
 app.use('/api', addToCart);
 app.use('/api', fetchCart);
+app.use('/api', placeOrder);
+app.use('/api', payment);
 
 
 app.listen(process.env.PORT, () => {
