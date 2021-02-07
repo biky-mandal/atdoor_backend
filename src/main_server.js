@@ -39,6 +39,7 @@ const addToCart = require('./Customers/routes/cart');
 const fetchCart = require('./Customers/routes/fetch_cart');
 const placeOrder = require('./Customers/routes/order');
 const payment = require('./Customers/routes/payment');
+const message = require('./Customers/routes/message');
 
 
 
@@ -56,6 +57,7 @@ app.use('/api', addToCart);
 app.use('/api', fetchCart);
 app.use('/api', placeOrder);
 app.use('/api', payment);
+app.use('/api', message);
 
 
 app.listen(process.env.PORT, () => {

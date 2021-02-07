@@ -1,6 +1,8 @@
 const Order = require('../../dbModels/orderSchema')
+const codOrder = require('../../dbModels/codorderSchema');
 const Razorpay = require("razorpay")
 const shortid = require('shortid')
+const Cart = require('../../dbModels/cart_Schema');
 
 //  This is for test payment.
 const razorpay = new Razorpay({
@@ -32,7 +34,7 @@ exports.placeOrder = async (req, res) => {
 
     const response = await razorpay.orders.create(options)
 
-    console.log(response);
+    // console.log(response);
     // Create a new Order.
     const order = new Order({
         user: user,
@@ -61,5 +63,71 @@ exports.placeOrder = async (req, res) => {
                 amount:response.amount
             })
         }
+    })
+}
+
+exports.codPlaceOrder = (req, res) => {
+
+    const codorder = new codOrder({
+        user: req.user._id,
+        order_id: shortid.generate(),
+        amount: req.body.amount *100,
+        currency: "INR",
+        receipt: shortid.generate(),
+        orderItems: req.body.orderItems
+    })
+
+    codorder.save((error, order) => {
+        if (error) {
+            return res.status(400).json({
+                error
+            })
+        }
+        if (order) {
+            Cart.findOneAndUpdate({user: req.user._id},
+                {
+                    "$pullAll": {
+                        cartItems : req.body.orderItems
+                    }
+                }, (error, _cart) => {
+                    if (error) {
+                        return res.status(400).json({
+                            error
+                        })
+                    }
+                    if (_cart) {
+                        return res.status(200).json({
+                            message: "Order Placed & Removed From Cart"
+                        })
+                    }
+                })
+        }
+    })
+}
+
+exports.fetchCODOrders = async (req, res) => {
+    const Allorders = await codOrder.find({}).exec();
+    const allOrder = []
+    Allorders.map(orders => {
+        if(orders.user == req.user._id){
+            allOrder.push(orders);
+        }
+    })
+
+    return res.status(200).json({
+        allOrder
+    })
+}
+exports.fetchOrders = async (req, res) => {
+    const Allorders = await Order.find({}).exec();
+    const allOrder = []
+    Allorders.map(orders => {
+        if(orders.user == req.user._id){
+            allOrder.push(orders);
+        }
+    })
+
+    return res.status(200).json({
+        allOrder
     })
 }
